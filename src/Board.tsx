@@ -32,12 +32,34 @@ export default function Board({
       }
       const value = xIsNext ? "X" : "O";
       const nextSquares = squares.map((v, i) => (i === index ? value : v));
-      const actualWinner: Winner = calculateWinner({
+
+      
+
+
+      const arr = calculateWinner({
         squares: nextSquares,
         lastMove: index,
         cols,
         target,
       });
+      let actualWinner: Winner=null;
+      if (arr==null) {
+        actualWinner=null;
+      }
+      else{
+        if (arr[0]==="X") {
+          actualWinner="X";
+        }
+        if(arr[0]==="O"){
+          actualWinner="O";
+        }
+        if (arr[0]==="Draw") {
+          actualWinner="Draw";
+        }
+      }
+
+      
+
       onPlay(nextSquares, actualWinner);
     },
     [cols, onPlay, squares, target, winner, xIsNext]

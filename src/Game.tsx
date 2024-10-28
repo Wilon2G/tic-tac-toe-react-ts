@@ -14,9 +14,11 @@ type GameProps = {
   rows: number;
   cols: number;
   target: number;
+  delGame:(gameName:string)=>void;
+  title:string;
 };
 
-export default function Game({ rows, cols, target }: GameProps) {
+export default function Game({ rows, cols, target,delGame,title }: GameProps) {
   const [history, setHistory] = useState<History>([
     {
       squares: Array(rows * cols).fill(null),
@@ -57,8 +59,15 @@ export default function Game({ rows, cols, target }: GameProps) {
   const { squares: currentSquares, winner } = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
+  function handleDel() {
+    delGame(title);
+  }
+
+  const delButtonComponent=<button onClick={handleDel}>Eliminar</button>;
+
   return (
     <div className="game">
+      
       <div className="game-board">
         <Board
           rows={rows}
@@ -73,6 +82,7 @@ export default function Game({ rows, cols, target }: GameProps) {
       <div className="game-info">
         <ol>{moves}</ol>
       </div>
+      {delButtonComponent}
     </div>
   );
 }

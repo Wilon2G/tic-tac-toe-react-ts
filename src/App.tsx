@@ -31,23 +31,23 @@ function App() {
   }
 
   return (
-    <Menu defaultActive="Config">
+    <Menu defaultActive={["Config"]}>
       <MenuItem
         key="config"
         title="Config"
         component={<Config addGame={addGame} />}
-        delButton={false}
-        delGame={delGame}
+        // delButton={false}
+        // delGame={delGame}
       />
       {games.map((game) => (
         <MenuItem
           key={game.gameName}
           title={game.gameName}
           component={
-            <Game rows={game.rows} cols={game.cols} target={game.target} />
+            <Game rows={game.rows} cols={game.cols} target={game.target} delGame={delGame} title={game.gameName}/>
           }
-          delButton={true}
-          delGame={delGame}
+          // delButton={true}
+          
         />
       ))}
     </Menu>
