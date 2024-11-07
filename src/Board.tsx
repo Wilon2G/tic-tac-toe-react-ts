@@ -25,6 +25,9 @@ export default function Board({
 }: BoardProps) {
   const [timeLeft, setTimeLeft] = useState(10);
 
+  const [winPositions, setWinPositions] = useState<(number|string)[]>([]);
+
+
   const makeMove = useCallback(
     (index: number) => {
       if (squares[index] || winner) {
@@ -36,25 +39,30 @@ export default function Board({
       
 
 
-      const arr = calculateWinner({
-        squares: nextSquares,
+        const arr = calculateWinner({  //Súper chapuza, calculateWinner devuelve o null o ["Draw"] o ["ganador X u O", posicion n1, posicion n2, posicion n3...]
+        squares: nextSquares,           //Probablemente sería mejor pasar el estado a calculateWinner o algo no se
         lastMove: index,
         cols,
         target,
       });
+      
       let actualWinner: Winner=null;
       if (arr==null) {
-        actualWinner=null;
+        actualWinner=null;    
+        setWinPositions([]);  //Otra chapuza, para reseterar el estado, si no hay ganador nos aseguramos que no hay nada en el arrag WinPositions
       }
       else{
         if (arr[0]==="X") {
           actualWinner="X";
+          setWinPositions(arr.slice(1)); //Seguimos con chapuzas, sólo cuando gana X u O hacemos un slice del array (para no guardar el valor, sólo las posiciones)
         }
         if(arr[0]==="O"){
           actualWinner="O";
+          setWinPositions(arr.slice(1)); //Y seteamos el estado de winPositions
         }
         if (arr[0]==="Draw") {
           actualWinner="Draw";
+          setWinPositions([]); //La misma chapuza de antes para reiniciar el array
         }
       }
 
@@ -118,6 +126,7 @@ export default function Board({
                 const key = c + cols * r;
                 return (
                   <Square
+                    winnerSqr= {(winPositions.includes(key)?"red":"")} //Busca que el cuadrado (key es el número de cuadrado) esté en el array de cuadrados ganadores
                     key={key}
                     value={squares[key]}
                     onSquareClick={() => makeMove(key)}
