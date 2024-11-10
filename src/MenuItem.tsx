@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { MenuContext } from "./Menu";
 
 type MenuItemProps = {
@@ -9,6 +9,8 @@ type MenuItemProps = {
   selectedGames:string[];
   // delGame:(gameName:string)=>void;
 };
+
+
 
 export default function MenuItem({ title, component, delButton, setSelectedGames,selectedGames }: MenuItemProps) {
   // , delButton,delGame
@@ -38,6 +40,8 @@ export default function MenuItem({ title, component, delButton, setSelectedGames
     
   }
 
+
+
   // const titleComponent = <div onClick={handleClick}>{title}</div>;
 
   const delButtonComponent=delButton?<input type="checkbox" onChange={()=> handleDel()} />:<></>;
@@ -45,10 +49,10 @@ export default function MenuItem({ title, component, delButton, setSelectedGames
   return (
     <li>
       {/* {titleComponent} */}
+      
+      
+      <div style={{backgroundColor:active?.includes( title )? "lightyellow" : "white"}} onClick={handleClick}>{title}</div>
       {delButtonComponent}
-      
-      <div style={{backgroundColor:active?.includes( title )? "lightyellow" : "white",width:"10%"}} onClick={handleClick}>{title}</div>
-      
       <div
         style={{
           display: active?.includes( title )? "block" : "none",

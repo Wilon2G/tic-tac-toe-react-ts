@@ -3,6 +3,7 @@ import Config from "./Config";
 import Game from "./Game";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
+import "./sass/main.scss"
 
 export type Config = {
   gameName: string;
@@ -43,13 +44,13 @@ function App() {
 
   return (
     <>
-    <button onClick={()=>delGame(selectedGames)}>
+    <button className="DeleteButton" onClick={()=>delGame(selectedGames)}>
         Delete Games
       </button>
     <Menu defaultActive={["Config"]}>
       <MenuItem
         key="config"
-        title="Config"
+        title="Tic-Tac-Toe"
         component={<Config addGame={addGame}  />}
         delButton={false}  //Especificamos que config no es un elemento eliminable
 

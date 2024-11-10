@@ -130,6 +130,7 @@ export default function Board({
                     key={key}
                     value={squares[key]}
                     onSquareClick={() => makeMove(key)}
+                    rows={rows}
                   />
                 );
               })}

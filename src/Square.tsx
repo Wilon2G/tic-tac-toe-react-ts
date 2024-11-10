@@ -4,13 +4,17 @@ type SquareProps = {
   value: Value;
   onSquareClick: () => void;
   winnerSqr:string;
+  rows:number;
 };
 
 
 
-export default function Square({ value, onSquareClick,winnerSqr }: SquareProps) {
+export default function Square({ value, onSquareClick,winnerSqr,rows }: SquareProps) {
+
+const size=`${100 / rows}%` ;
+
   return (
-    <button className="square" onClick={onSquareClick} style={{backgroundColor:winnerSqr}} >
+    <button className="square" onClick={onSquareClick} style={{backgroundColor:winnerSqr, flexBasis:size} } >
       {value}
     </button>
   );
