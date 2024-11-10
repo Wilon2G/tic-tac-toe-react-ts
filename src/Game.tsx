@@ -14,11 +14,11 @@ type GameProps = {
   rows: number;
   cols: number;
   target: number;
-  delGame:(gameName:string)=>void;
+  // delGame:(gameName:string)=>void;
   title:string;
 };
 
-export default function Game({ rows, cols, target,delGame,title }: GameProps) {
+export default function Game({ rows, cols, target }: GameProps) { // Si queremos eliminar el juego desde game tenemos que poder pasarle la función y el título ,delGame,title
   const [history, setHistory] = useState<History>([
     {
       squares: Array(rows * cols).fill(null),
@@ -59,11 +59,11 @@ export default function Game({ rows, cols, target,delGame,title }: GameProps) {
   const { squares: currentSquares, winner } = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
-  function handleDel() {
-    delGame(title);
-  }
+  // function handleDel() {
+  //   delGame(title);             // Función para borrar el juego desde game
+  // }
 
-  const delButtonComponent=<button onClick={handleDel}>Eliminar</button>;
+  // const delButtonComponent=<button onClick={handleDel}>Eliminar</button>;      //Botón de delete
 
   return (
     <div className="game">
@@ -82,7 +82,7 @@ export default function Game({ rows, cols, target,delGame,title }: GameProps) {
       <div className="game-info">
         <ol>{moves}</ol>
       </div>
-      {delButtonComponent}
+      {/* {delButtonComponent} */}    {/*Para poner el botón de delete dentro de game*/}
     </div>
   );
 }

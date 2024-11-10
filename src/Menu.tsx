@@ -17,6 +17,7 @@ export const MenuContext = createContext<MenuContext>({
 
 export default function Menu({ children, defaultActive = null }: MenuProps) {
   const [active, setActive] = useState<string [] | null>(defaultActive);
+  
   return (
     <MenuContext.Provider value={{ active, setActive }}>
       <ol

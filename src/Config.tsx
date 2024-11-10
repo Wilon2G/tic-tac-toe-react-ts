@@ -3,7 +3,6 @@ import type { Config } from "./App";
 
 type ConfigProps = {
   addGame: (rows: number, cols: number, target: number) => void;
-  
 };
 
 export default function Config({ addGame }: ConfigProps) {
@@ -24,12 +23,15 @@ export default function Config({ addGame }: ConfigProps) {
     const rows = parseInt(rowsRef.current!.value, 10);
     const cols = parseInt(colsRef.current!.value, 10);
     const target = parseInt(targetRef.current!.value, 10);
-    return !isNaN(rows) && !isNaN(cols) && !isNaN(target);
+
+    return !isNaN(rows) && !isNaN(cols) && !isNaN(target) && ((cols|rows) >= target);
   }
 
   function handleChange() {
     setDisabledButton(!isValidConfig());
   }
+
+  
 
   return (
     <form>
@@ -69,6 +71,7 @@ export default function Config({ addGame }: ConfigProps) {
       <button onClick={handleClick} disabled={disabledButton}>
         Add game
       </button>
+      
     </form>
   );
 }

@@ -4,11 +4,13 @@ import { MenuContext } from "./Menu";
 type MenuItemProps = {
   title: string;
   component: ReactNode;
-  // delButton:boolean;
+  delButton:boolean;    //Al ítem le pasamos un booleano para saber si es un elemento eliminable o no
+  setSelectedGames:(title:string[]) => void;
+  selectedGames:string[];
   // delGame:(gameName:string)=>void;
 };
 
-export default function MenuItem({ title, component }: MenuItemProps) {
+export default function MenuItem({ title, component, delButton, setSelectedGames,selectedGames }: MenuItemProps) {
   // , delButton,delGame
   const { active, setActive } = useContext(MenuContext);
 
@@ -21,19 +23,32 @@ export default function MenuItem({ title, component }: MenuItemProps) {
     }
     
   }
-  // function handleDel() {
-  //   delGame(title);
-  // }
+  
+  function handleDel() {
+    
+    if (selectedGames.includes(title)) {
+      console.log("Juego des-selecionado ");
+      setSelectedGames([...selectedGames.filter((v)=>v!==title)]);
+    }
+    else{
+      console.log("Juego selecionado");
+      setSelectedGames([...selectedGames,title]);
+    }
+
+    
+  }
 
   // const titleComponent = <div onClick={handleClick}>{title}</div>;
 
-  // const delButtonComponent=delButton?<button onClick={handleDel}>Eliminar</button>:<div></div>;
+  const delButtonComponent=delButton?<input type="checkbox" onChange={()=> handleDel()} />:<></>;
 
   return (
     <li>
       {/* {titleComponent} */}
+      {delButtonComponent}
+      
       <div style={{backgroundColor:active?.includes( title )? "lightyellow" : "white",width:"10%"}} onClick={handleClick}>{title}</div>
-      {/* {delButtonComponent} */}
+      
       <div
         style={{
           display: active?.includes( title )? "block" : "none",
